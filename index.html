@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información del Vehículo - Confipetrol</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #eef2f5; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        h1 { color: #004080; text-align: center; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
-        .vehicle-img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ddd; display: none; }
+        body { font-family: Arial, sans-serif; background: #eef2f5; margin: 0; padding: 15px; color: #333; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); box-sizing: border-box; }
+        h1 { color: #004080; text-align: center; margin-bottom: 5px; font-size: 24px; }
+        .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
+        
+        /* Contenedor adaptativo para la foto del vehículo */
+        .vehicle-img-container { width: 100%; max-height: 320px; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #000; display: none; text-align: center; }
+        .vehicle-img { width: 100%; height: auto; max-height: 320px; object-fit: contain; display: block; margin: 0 auto; }
+        
         .card { background: #f8f9fa; border-left: 5px solid #004080; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
-        .card p { margin: 8px 0; font-size: 15px; }
+        .card p { margin: 8px 0; font-size: 15px; word-break: break-word; }
         .btn { display: block; width: 100%; padding: 14px; margin: 12px 0; background: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: bold; box-sizing: border-box; transition: background 0.3s; }
         .btn:hover { background: #0056b3; }
         .btn-secondary { background: #28a745; }
@@ -29,26 +33,11 @@
 
     <script>
         // PEGA AQUÍ LA URL DE TU WEB APP DE APPS SCRIPT (la que termina en /exec)
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxWUF5s5w1TpnAsqoTm-ZQ_GSTz5QLnPbW_J2qJg4mwTFiPJPmr10jK01iL41A02C34GQ/exec";
+        const WEB_APP_URL = "TU_URL_DE_WEB_APP_DE_APPS_SCRIPT_AQUI";
 
         const urlParams = new URLSearchParams(window.location.search);
         const vehicleId = urlParams.get('id');
         const container = document.getElementById('content');
-
-        // Función auxiliar para transformar enlaces de Google Drive a formato de visualización directa de imagen si es necesario
-        function formatDriveUrl(url) {
-            if (!url) return '#';
-            // Si es un link de compartir de Google Drive, intentamos adaptarlo para imagen o lo dejamos directo
-            if (url.includes('drive.google.com') && url.includes('id=')) {
-                let fileId = url.split('id=')[1].split('&')[0];
-                return `https://lh3.googleusercontent.com/d/${fileId}`;
-            }
-            if (url.includes('drive.google.com/file/d/')) {
-                let fileId = url.split('/d/')[1].split('/')[0];
-                return `https://lh3.googleusercontent.com/d/${fileId}`;
-            }
-            return url;
-        }
 
         if (!vehicleId) {
             container.innerHTML = '<div class="error">No se ha especificado ningún vehículo en el código QR.</div>';
@@ -61,11 +50,12 @@
                         return;
                     }
 
-                    let fotoSrc = formatDriveUrl(data.fotoLink);
-                    let mostrarImg = data.fotoLink ? 'display: block;' : 'display: none;';
+                    let mostrarContenedor = data.fotoLink ? 'display: block;' : 'display: none;';
 
                     container.innerHTML = `
-                        <img id="carImg" src="${fotoSrc}" alt="Foto del Vehículo" class="vehicle-img" style="${mostrarImg}" onerror="this.style.display='none';">
+                        <div id="imgContainer" class="vehicle-img-container" style="${mostrarContenedor}">
+                            <img id="carImg" src="${data.fotoLink || ''}" alt="Foto del Vehículo" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
+                        </div>
                         <div class="card">
                             <p><strong>Placa:</strong> ${data.placa}</p>
                             <p><strong>Vehículo:</strong> ${data.marca} ${data.modelo} (${data.color})</p>

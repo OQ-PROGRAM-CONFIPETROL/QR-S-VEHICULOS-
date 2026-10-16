@@ -10,16 +10,23 @@
         h1 { color: #004080; text-align: center; margin-bottom: 5px; font-size: 24px; }
         .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
         
-        /* Contenedor adaptativo para la foto del vehículo */
         .vehicle-img-container { width: 100%; max-height: 320px; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #000; display: none; text-align: center; }
         .vehicle-img { width: 100%; height: auto; max-height: 320px; object-fit: contain; display: block; margin: 0 auto; }
         
         .card { background: #f8f9fa; border-left: 5px solid #004080; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
         .card p { margin: 8px 0; font-size: 15px; word-break: break-word; }
-        .btn { display: block; width: 100%; padding: 14px; margin: 12px 0; background: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: bold; box-sizing: border-box; transition: background 0.3s; }
+        
+        h3 { color: #004080; border-bottom: 2px solid #eef2f5; padding-bottom: 5px; margin-top: 25px; }
+        
+        .btn { display: block; width: 100%; padding: 14px; margin: 10px 0; background: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: bold; box-sizing: border-box; transition: background 0.3s; }
         .btn:hover { background: #0056b3; }
         .btn-secondary { background: #28a745; }
         .btn-secondary:hover { background: #218838; }
+        .btn-warning { background: #ffc107; color: #333; }
+        .btn-warning:hover { background: #e0a800; }
+        .btn-dark { background: #343a40; }
+        .btn-dark:hover { background: #23272b; }
+
         .error { color: #d9534f; text-align: center; font-weight: bold; padding: 20px; }
         .loading { text-align: center; font-style: italic; color: #777; padding: 20px; }
     </style>
@@ -32,8 +39,8 @@
     </div>
 
     <script>
-        // PEGA AQUÍ LA URL DE TU WEB APP DE APPS SCRIPT (la que termina en /exec)
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxWUF5s5w1TpnAsqoTm-ZQ_GSTz5QLnPbW_J2qJg4mwTFiPJPmr10jK01iL41A02C34GQ/exec";
+        // PEGA AQUÍ TU URL DE WEB APP DE APPS SCRIPT (la que termina en /exec)
+        const WEB_APP_URL = "TU_URL_DE_WEB_APP_DE_APPS_SCRIPT_AQUI";
 
         const urlParams = new URLSearchParams(window.location.search);
         const vehicleId = urlParams.get('id');
@@ -65,8 +72,11 @@
                             <p><strong>Chasis:</strong> ${data.serieChasis}</p>
                         </div>
                         <h3>Documentación Oficial</h3>
-                        <a href="${data.soatLink || '#'}" class="btn" target="_blank">📄 Ver Seguro / SOAT</a>
-                        <a href="${data.tecnomecanciaLink || '#'}" class="btn btn-secondary" target="_blank">🔧 Ver Tecnomecánica / Mantenimiento</a>
+                        <a href="${data.soatLink || '#'}" class="btn" target="_blank" style="${data.soatLink ? '' : 'display:none;'}">📄 Ver SOAT</a>
+                        <a href="${data.polizaLink || '#'}" class="btn btn-warning" target="_blank" style="${data.polizaLink ? '' : 'display:none;'}">🛡️ Ver Póliza Todo Riesgo</a>
+                        <a href="${data.tarjetaLink || '#'}" class="btn btn-dark" target="_blank" style="${data.tarjetaLink ? '' : 'display:none;'}">🚗 Ver Tarjeta de Propiedad</a>
+                        <a href="${data.tecnomecanciaLink || '#'}" class="btn btn-secondary" target="_blank" style="${data.tecnomecanciaLink ? '' : 'display:none;'}">🔧 Ver Tecnomecánica / Mantenimiento</a>
+                        <a href="${data.hojaVidaLink || '#'}" class="btn" target="_blank" style="${data.hojaVidaLink ? '' : 'display:none; background: #6c757d;'}">📋 Ver Hoja de Vida del Vehículo</a>
                     `;
                 })
                 .catch(error => {

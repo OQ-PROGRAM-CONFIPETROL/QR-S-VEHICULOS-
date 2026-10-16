@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Información de Vehículo - Confipetrol</title>
+
+    <style>
+
+        body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+
+        h1 { color: #0056b3; text-align: center; }
+
+        .info-group { margin-bottom: 15px; padding: 10px; background: #eef2f5; border-radius: 5px; }
+
+        .btn { display: block; width: 100%; padding: 12px; margin: 10px 0; background: #28a745; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold; box-sizing: border-box; }
+
+        .btn:hover { background: #218838; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Control de Vehículo</h1>
+
+        <div id="details">Cargando información del vehículo...</div>
+
+    </div>
+
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const vehicleId = urlParams.get('id');
+
+        
+
+        // Aquí puedes integrar una consulta a un JSON o Apps Script Web App para traer dinámicamente los datos y enlaces del Drive
+
+        document.getElementById('details').innerHTML = `
+
+            <div class="info-group"><strong>ID del Vehículo:</strong> ${vehicleId || 'No especificado'}</div>
+
+            <p>Con este identificador se pueden enlazar los documentos del Google Drive.</p>
+
+            <a href="#" class="btn" target="_blank">Ver Seguro / Póliza</a>
+
+            <a href="#" class="btn" target="_blank">Ver Tecnomecánica / Mantenimiento</a>
+
+        `;
+
+    </script>
+
+</body>
+
+</html>

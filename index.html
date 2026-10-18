@@ -3,128 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Flota - Confipetrol</title>
+    <title>Control de Flota - Confipetrol</title>
     <style>
         :root {
-            --primary-dark: #0a1931;
-            --primary-blue: #0f2b5c;
-            --accent-orange: #e07e34;
-            --accent-hover: #c96b28;
-            --bg-gradient: #f4f7fa;
-            --card-bg: #ffffff;
-            --text-main: #334155;
-            --text-muted: #64748b;
+            --azul-confipetrol: #0f2b5c;
+            --azul-oscuro: #081b3d;
+            --naranja-confipetrol: #e07e34;
+            --naranja-hover: #c86a24;
+            --fondo: #f4f7fa;
+            --tarjeta: #ffffff;
+            --texto: #1e293b;
+            --texto-secundario: #64748b;
         }
 
         body { 
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
-            background: linear-gradient(135deg, #e2e8f0 0%, var(--bg-gradient) 100%); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background: linear-gradient(180deg, #e2e8f0 0%, var(--fondo) 100%); 
             margin: 0; 
-            padding: 20px; 
-            color: var(--text-main); 
+            padding: 16px; 
+            color: var(--texto); 
             min-height: 100vh;
         }
 
         .container { 
-            max-width: 540px; 
+            max-width: 520px; 
             margin: auto; 
-            background: var(--card-bg); 
-            padding: 30px; 
+            background: var(--tarjeta); 
+            padding: 24px; 
             border-radius: 16px; 
-            box-shadow: 0 10px 25px -5px rgba(15, 43, 92, 0.1), 0 8px 10px -6px rgba(15, 43, 92, 0.1); 
+            box-shadow: 0 10px 25px -5px rgba(15, 43, 92, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04); 
             box-sizing: border-box; 
-            border-top: 5px solid var(--accent-orange);
+            border-top: 6px solid var(--naranja-confipetrol);
         }
 
         .header-logo {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 16px;
         }
 
         .header-logo img {
-            max-width: 200px;
+            max-width: 210px;
             height: auto;
         }
 
         h1 { 
-            color: var(--primary-blue); 
+            color: var(--azul-confipetrol); 
             text-align: center; 
-            margin: 0 0 5px 0; 
-            font-size: 24px; 
+            margin: 0 0 4px 0; 
+            font-size: 22px; 
             font-weight: 800;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
         .subtitle { 
             text-align: center; 
-            color: var(--text-muted); 
-            font-size: 12px; 
-            margin-bottom: 25px; 
+            color: var(--texto-secundario); 
+            font-size: 11px; 
+            margin-bottom: 20px; 
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        
+
         .vehicle-img-container { 
             width: 100%; 
-            max-height: 280px; 
+            max-height: 260px; 
             overflow: hidden; 
             border-radius: 12px; 
-            margin-bottom: 22px; 
+            margin-bottom: 20px; 
             background: #0f172a; 
             display: none; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .vehicle-img { 
             width: 100%; 
             height: auto; 
-            max-height: 280px; 
+            max-height: 260px; 
             object-fit: cover; 
             display: block; 
-            transition: transform 0.3s ease;
         }
 
-        .vehicle-img:hover {
-            transform: scale(1.02);
-        }
-        
         .specs-card { 
             background: #f8fafc; 
             border: 1px solid #e2e8f0;
-            border-left: 5px solid var(--primary-blue); 
-            padding: 18px; 
-            margin-bottom: 25px; 
-            border-radius: 8px; 
+            border-left: 5px solid var(--azul-confipetrol); 
+            padding: 16px; 
+            margin-bottom: 20px; 
+            border-radius: 10px; 
         }
 
-        .specs-card p { 
-            margin: 10px 0; 
-            font-size: 14.5px; 
+        .specs-row {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px dashed #e2e8f0;
-            padding-bottom: 6px;
-        }
-
-        .specs-card p:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .specs-card strong {
-            color: var(--primary-blue);
-        }
-        
-        .section-title { 
-            color: var(--primary-blue); 
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin: 25px 0 12px 0;
+        }
+
+        .specs-row:last-child {
+            border-bottom: none;
+        }
+
+        .specs-label {
             font-weight: 700;
+            color: var(--azul-confipetrol);
+        }
+
+        .specs-val {
+            text-align: right;
+            color: var(--texto);
+        }
+
+        .btn { 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%; 
+            padding: 14px; 
+            margin: 10px 0; 
+            background: var(--azul-confipetrol); 
+            color: white; 
+            text-align: center; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: 700; 
+            font-size: 14px;
+            box-sizing: border-box; 
+            transition: all 0.2s ease; 
+            box-shadow: 0 4px 6px -1px rgba(15, 43, 92, 0.1);
+        }
+
+        .btn:hover { 
+            background: var(--azul-oscuro);
+            transform: translateY(-1px);
+        }
+
+        .btn-preoperacional { 
+            background: linear-gradient(135deg, var(--naranja-confipetrol) 0%, #d97327 100%); 
+            color: white;
+            font-size: 15px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(224, 126, 52, 0.25);
+            margin-bottom: 24px;
+        }
+
+        .btn-preoperacional:hover { 
+            background: var(--naranja-hover); 
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--azul-confipetrol);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 20px 0 10px 0;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -136,60 +172,14 @@
             height: 1px;
             background: #cbd5e1;
         }
-        
-        .btn { 
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%; 
-            padding: 14px; 
-            margin: 10px 0; 
-            background: var(--primary-blue); 
-            color: white; 
-            text-align: center; 
-            text-decoration: none; 
-            border-radius: 8px; 
-            font-weight: 600; 
-            font-size: 14.5px;
-            box-sizing: border-box; 
-            transition: all 0.2s ease; 
-            box-shadow: 0 4px 6px -1px rgba(15, 43, 92, 0.1);
-        }
-
-        .btn:hover { 
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 8px -1px rgba(15, 43, 92, 0.2);
-        }
-
-        .btn-preoperacional { 
-            background: linear-gradient(135deg, var(--accent-orange) 0%, #d97327 100%); 
-            color: white;
-            font-size: 16px;
-            padding: 16px;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(224, 126, 52, 0.3);
-        }
-
-        .btn-preoperacional:hover { 
-            background: linear-gradient(135deg, var(--accent-hover) 0%, #b85e1b 100%); 
-        }
 
         .btn-secondary { background: #059669; }
-        .btn-secondary:hover { background: #047857; }
-        
         .btn-warning { background: #d97706; }
-        .btn-warning:hover { background: #b45309; }
-        
         .btn-dark { background: #334155; }
-        .btn-dark:hover { background: #1e293b; }
+        .btn-gray { background: #64748b; }
 
-        .btn-gray { background: #475569; }
-        .btn-gray:hover { background: #334155; }
-
-        .error { color: #dc2626; text-align: center; font-weight: bold; padding: 20px; background: #fee2e2; border-radius: 8px;}
-        .loading { text-align: center; font-style: italic; color: var(--text-muted); padding: 30px; }
+        .error { color: #dc2626; text-align: center; font-weight: bold; padding: 20px; background: #fee2e2; border-radius: 8px; }
+        .loading { text-align: center; font-style: italic; color: var(--texto-secundario); padding: 30px; }
     </style>
 </head>
 <body>
@@ -199,14 +189,13 @@
         </div>
         
         <h1>Control de Flota</h1>
-        <div class="subtitle">Plataforma de Inspección y Confiabilidad</div>
+        <div class="subtitle">Inspección & Confiabilidad</div>
         
-        <div id="content" class="loading">Cargando perfil del vehículo...</div>
+        <div id="content" class="loading">Cargando datos de la unidad...</div>
     </div>
 
     <script>
-        // PEGA AQUÍ TU URL DE WEB APP DE APPS SCRIPT (la que termina en /exec)
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxWUF5s5w1TpnAsqoTm-ZQ_GSTz5QLnPbW_J2qJg4mwTFiPJPmr10jK01iL41A02C34GQ/exec";
+        const WEB_APP_URL = "TU_URL_DE_WEB_APP_DE_APPS_SCRIPT_AQUI";
         const FORMS_PREOPERACIONAL_URL = "https://forms.office.com/pages/responsepage.aspx?id=yS0eZAbR9kW7ZsdC2UyRBA85K0XcYFZFtOvUHRwVjVNUMFA1QzQyRFMyNTUwUVI5NEJNMFhSUUowSC4u&origin=QRCode&route=shorturl";
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -214,30 +203,30 @@
         const container = document.getElementById('content');
 
         if (!vehicleId) {
-            container.innerHTML = '<div class="error">⚠️ No se ha especificado ningún identificador en el código QR.</div>';
+            container.innerHTML = '<div class="error">⚠️ No se especificó ningún vehículo en la consulta.</div>';
         } else {
             fetch(WEB_APP_URL + "?id=" + vehicleId)
                 .then(response => response.json())
                 .then(data => {
                     if (!data || !data.placa) {
-                        container.innerHTML = '<div class="error">❌ Vehículo no registrado en la base de datos de Confipetrol.</div>';
+                        container.innerHTML = '<div class="error">❌ Vehículo no encontrado en el sistema.</div>';
                         return;
                     }
 
-                    let mostrarContenedor = data.fotoLink ? 'display: block;' : 'display: none;';
+                    let mostrarImg = data.fotoLink ? 'display: block;' : 'display: none;';
 
                     container.innerHTML = `
-                        <div id="imgContainer" class="vehicle-img-container" style="${mostrarContenedor}">
-                            <img id="carImg" src="${data.fotoLink || ''}" alt="Foto Unidad" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
+                        <div id="imgContainer" class="vehicle-img-container" style="${mostrarImg}">
+                            <img id="carImg" src="${data.fotoLink || ''}" alt="Foto Vehículo" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
                         </div>
                         
                         <div class="specs-card">
-                            <p><strong>PLACA:</strong> <span>${data.placa}</span></p>
-                            <p><strong>VEHÍCULO:</strong> <span>${data.marca} ${data.modelo} (${data.color})</span></p>
-                            <p><strong>DESCRIPCIÓN:</strong> <span>${data.descripcion}</span></p>
-                            <p><strong>COMBUSTIBLE:</strong> <span>${data.combustible}</span></p>
-                            <p><strong>Nº MOTOR:</strong> <span>${data.serieMotor}</span></p>
-                            <p><strong>Nº CHASIS:</strong> <span>${data.serieChasis}</span></p>
+                            <div class="specs-row"><span class="specs-label">PLACA</span><span class="specs-val"><strong>${data.placa}</strong></span></div>
+                            <div class="specs-row"><span class="specs-label">VEHÍCULO</span><span class="specs-val">${data.marca} ${data.modelo} (${data.color})</span></div>
+                            <div class="specs-row"><span class="specs-label">DESCRIPCIÓN</span><span class="specs-val">${data.descripcion}</span></div>
+                            <div class="specs-row"><span class="specs-label">COMBUSTIBLE</span><span class="specs-val">${data.combustible}</span></div>
+                            <div class="specs-row"><span class="specs-label">Nº MOTOR</span><span class="specs-val">${data.serieMotor}</span></div>
+                            <div class="specs-row"><span class="specs-label">Nº CHASIS</span><span class="specs-val">${data.serieChasis}</span></div>
                         </div>
 
                         <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
@@ -253,7 +242,7 @@
                 })
                 .catch(error => {
                     console.error("Error al obtener los datos:", error);
-                    container.innerHTML = '<div class="error">⚠️ Error de conexión con el servidor de la flota. Intente nuevamente.</div>';
+                    container.innerHTML = '<div class="error">⚠️ Error al conectar con el servidor. Intente nuevamente.</div>';
                 });
         }
     </script>

@@ -3,29 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información del Vehículo - Confipetrol</title>
+    <title>Control de Flota - Confipetrol</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #eef2f5; margin: 0; padding: 15px; color: #333; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); box-sizing: border-box; }
-        h1 { color: #004080; text-align: center; margin-bottom: 5px; font-size: 24px; }
-        .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
+        :root {
+            --azul-confipetrol: #0f2b5c;
+            --naranja-confipetrol: #e07e34;
+            --naranja-hover: #c96b28;
+            --gris-fondo: #f2f4f8;
+            --texto-oscuro: #2c3e50;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--gris-fondo); 
+            margin: 0; 
+            padding: 15px; 
+            color: var(--texto-oscuro); 
+        }
+
+        .container { 
+            max-width: 600px; 
+            margin: auto; 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 6px 18px rgba(15, 43, 92, 0.12); 
+            box-sizing: border-box; 
+        }
+
+        .header-logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .header-logo img {
+            max-width: 220px;
+            height: auto;
+        }
+
+        h1 { 
+            color: var(--azul-confipetrol); 
+            text-align: center; 
+            margin: 10px 0 5px 0; 
+            font-size: 22px; 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle { 
+            text-align: center; 
+            color: #666; 
+            font-size: 13px; 
+            margin-bottom: 20px; 
+            font-weight: 600;
+        }
         
-        .vehicle-img-container { width: 100%; max-height: 320px; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #000; display: none; text-align: center; }
-        .vehicle-img { width: 100%; height: auto; max-height: 320px; object-fit: contain; display: block; margin: 0 auto; }
+        .vehicle-img-container { 
+            width: 100%; 
+            max-height: 300px; 
+            overflow: hidden; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+            background: #111; 
+            display: none; 
+            text-align: center; 
+            border: 2px solid #e1e8f0;
+        }
+
+        .vehicle-img { 
+            width: 100%; 
+            height: auto; 
+            max-height: 300px; 
+            object-fit: contain; 
+            display: block; 
+            margin: 0 auto; 
+        }
         
-        .card { background: #f8f9fa; border-left: 5px solid #004080; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
-        .card p { margin: 8px 0; font-size: 15px; word-break: break-word; }
+        .card { 
+            background: #f8fafc; 
+            border-left: 6px solid var(--azul-confipetrol); 
+            padding: 16px; 
+            margin-bottom: 20px; 
+            border-radius: 6px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .card p { 
+            margin: 8px 0; 
+            font-size: 14.5px; 
+            word-break: break-word; 
+            line-height: 1.4;
+        }
+
+        .card strong {
+            color: var(--azul-confipetrol);
+        }
         
-        h3 { color: #004080; border-bottom: 2px solid #eef2f5; padding-bottom: 5px; margin-top: 25px; }
+        h3 { 
+            color: var(--azul-confipetrol); 
+            border-bottom: 2px solid #e1e8f0; 
+            padding-bottom: 6px; 
+            margin-top: 25px; 
+            font-size: 16px;
+            text-transform: uppercase;
+        }
         
-        .btn { display: block; width: 100%; padding: 14px; margin: 10px 0; background: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: bold; box-sizing: border-box; transition: background 0.3s; }
-        .btn:hover { background: #0056b3; }
+        .btn { 
+            display: block; 
+            width: 100%; 
+            padding: 14px; 
+            margin: 10px 0; 
+            background: var(--azul-confipetrol); 
+            color: white; 
+            text-align: center; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 15px;
+            box-sizing: border-box; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+
+        .btn:hover { 
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        /* Botón de Preoperacional destacado con color Naranja Corporativo */
+        .btn-preoperacional { 
+            background: var(--naranja-confipetrol); 
+            color: white;
+            font-size: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .btn-preoperacional:hover { 
+            background: var(--naranja-hover); 
+        }
+
         .btn-secondary { background: #28a745; }
-        .btn-secondary:hover { background: #218838; }
-        .btn-warning { background: #ffc107; color: #333; }
-        .btn-warning:hover { background: #e0a800; }
-        .btn-dark { background: #343a40; }
-        .btn-dark:hover { background: #23272b; }
+        .btn-warning { background: #d97724; color: white; }
+        .btn-dark { background: #34495e; }
+        .btn-gray { background: #6c757d; }
 
         .error { color: #d9534f; text-align: center; font-weight: bold; padding: 20px; }
         .loading { text-align: center; font-style: italic; color: #777; padding: 20px; }
@@ -33,14 +155,22 @@
 </head>
 <body>
     <div class="container">
+        <!-- Logo Corporativo desde GitHub -->
+        <div class="header-logo">
+            <img src="logo.png.png" alt="Logo Confipetrol" onerror="this.style.display='none';">
+        </div>
+        
         <h1>Control de Flota</h1>
-        <div class="subtitle">Confipetrol S.A.S.</div>
+        <div class="subtitle">SISTEMA DE GESTIÓN DE VEHÍCULOS</div>
         <div id="content" class="loading">Consultando información del vehículo...</div>
     </div>
 
     <script>
         // PEGA AQUÍ TU URL DE WEB APP DE APPS SCRIPT (la que termina en /exec)
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxWUF5s5w1TpnAsqoTm-ZQ_GSTz5QLnPbW_J2qJg4mwTFiPJPmr10jK01iL41A02C34GQ/exec";
+
+        // URL del Formulario Preoperacional de Microsoft Forms
+        const FORMS_PREOPERACIONAL_URL = "https://forms.office.com/pages/responsepage.aspx?id=yS0eZAbR9kW7ZsdC2UyRBA85K0XcYFZFtOvUHRwVjVNUMFA1QzQyRFMyNTUwUVI5NEJNMFhSUUowSC4u&origin=QRCode&route=shorturl";
 
         const urlParams = new URLSearchParams(window.location.search);
         const vehicleId = urlParams.get('id');
@@ -63,20 +193,25 @@
                         <div id="imgContainer" class="vehicle-img-container" style="${mostrarContenedor}">
                             <img id="carImg" src="${data.fotoLink || ''}" alt="Foto del Vehículo" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
                         </div>
+                        
                         <div class="card">
-                            <p><strong>Placa:</strong> ${data.placa}</p>
-                            <p><strong>Vehículo:</strong> ${data.marca} ${data.modelo} (${data.color})</p>
-                            <p><strong>Descripción:</strong> ${data.descripcion}</p>
-                            <p><strong>Combustible:</strong> ${data.combustible}</p>
-                            <p><strong>Motor:</strong> ${data.serieMotor}</p>
-                            <p><strong>Chasis:</strong> ${data.serieChasis}</p>
+                            <p><strong>PLACA:</strong> ${data.placa}</p>
+                            <p><strong>VEHÍCULO:</strong> ${data.marca} ${data.modelo} (${data.color})</p>
+                            <p><strong>DESCRIPCIÓN:</strong> ${data.descripcion}</p>
+                            <p><strong>COMBUSTIBLE:</strong> ${data.combustible}</p>
+                            <p><strong>Nº MOTOR:</strong> ${data.serieMotor}</p>
+                            <p><strong>Nº CHASIS:</strong> ${data.serieChasis}</p>
                         </div>
+
+                        <!-- Botón destacado Preoperacional -->
+                        <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
+
                         <h3>Documentación Oficial</h3>
                         <a href="${data.soatLink || '#'}" class="btn" target="_blank" style="${data.soatLink ? '' : 'display:none;'}">📄 Ver SOAT</a>
                         <a href="${data.polizaLink || '#'}" class="btn btn-warning" target="_blank" style="${data.polizaLink ? '' : 'display:none;'}">🛡️ Ver Póliza Todo Riesgo</a>
                         <a href="${data.tarjetaLink || '#'}" class="btn btn-dark" target="_blank" style="${data.tarjetaLink ? '' : 'display:none;'}">🚗 Ver Tarjeta de Propiedad</a>
                         <a href="${data.tecnomecanciaLink || '#'}" class="btn btn-secondary" target="_blank" style="${data.tecnomecanciaLink ? '' : 'display:none;'}">🔧 Ver Tecnomecánica / Mantenimiento</a>
-                        <a href="${data.hojaVidaLink || '#'}" class="btn" target="_blank" style="${data.hojaVidaLink ? '' : 'display:none; background: #6c757d;'}">📋 Ver Hoja de Vida del Vehículo</a>
+                        <a href="${data.hojaVidaLink || '#'}" class="btn btn-gray" target="_blank" style="${data.hojaVidaLink ? '' : 'display:none;'}">📋 Ver Hoja de Vida del Vehículo</a>
                     `;
                 })
                 .catch(error => {

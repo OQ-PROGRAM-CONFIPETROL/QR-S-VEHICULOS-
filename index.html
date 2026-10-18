@@ -25,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* ANIMACIONES PRINCIPALES */
         @keyframes fadeInContainer {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -89,7 +88,6 @@
             text-transform: uppercase;
         }
 
-        /* CONTENEDOR ANIMA SUS ELEMENTOS */
         .fade-element {
             opacity: 0;
             animation: fadeInUp 0.5s ease-out forwards;
@@ -182,10 +180,6 @@
             box-shadow: 0 6px 12px -2px rgba(15, 43, 92, 0.2);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
         .btn-preoperacional { 
             background: linear-gradient(135deg, var(--naranja-confipetrol) 0%, #d97327 100%); 
             color: white;
@@ -250,7 +244,6 @@
             font-size: 14px;
         }
 
-        /* SPINNER DE CARGA CORPORATIVO */
         .spinner {
             width: 38px;
             height: 38px;
@@ -269,7 +262,7 @@
             <img src="logo.png.png" alt="Confipetrol Logo" onerror="this.style.display='none';">
         </div>
         
-        <h1>Control de Flota</h1>
+        <h1>CONTROL DE FLOTA</h1>
         <div class="subtitle">Inspección & Confiabilidad</div>
         
         <div id="content" class="loading">
@@ -286,9 +279,8 @@
         const vehicleId = urlParams.get('id');
         const container = document.getElementById('content');
 
-        // Función auxiliar para validar enlaces vacíos o nulos
         function isValidUrl(url) {
-            return url && url.toString().trim() !== "" && url.toString().trim() !== "#";
+            return url && url.toString().trim() !== "" && url.toString().trim() !== "#" && url.toString().trim() !== "undefined";
         }
 
         if (!vehicleId) {
@@ -319,6 +311,7 @@
                             <div class="specs-row"><span class="specs-label">Nº CHASIS</span><span class="specs-val">${data.serieChasis || 'N/A'}</span></div>
                         </div>
 
+                        <!-- EL BOTÓN SE RENDERIZA SIEMPRE FIJO AQUÍ -->
                         <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional fade-element delay-2" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
 
                         <div class="section-title fade-element delay-3">Documentación Oficial</div>

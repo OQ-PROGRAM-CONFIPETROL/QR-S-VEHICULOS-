@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Flota - Confipetrol</title>
+    <title>CONTROL DE FLOTA - CONFIPETROL</title>
     <style>
         :root {
             --azul-confipetrol: #0f2b5c;
@@ -25,6 +25,28 @@
             min-height: 100vh;
         }
 
+        /* ANIMACIONES PRINCIPALES */
+        @keyframes fadeInContainer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 4px 12px rgba(224, 126, 52, 0.25); }
+            50% { box-shadow: 0 6px 20px rgba(224, 126, 52, 0.55); }
+            100% { box-shadow: 0 4px 12px rgba(224, 126, 52, 0.25); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .container { 
             max-width: 520px; 
             margin: auto; 
@@ -34,6 +56,7 @@
             box-shadow: 0 10px 25px -5px rgba(15, 43, 92, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04); 
             box-sizing: border-box; 
             border-top: 6px solid var(--naranja-confipetrol);
+            animation: fadeInContainer 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .header-logo {
@@ -53,6 +76,7 @@
             font-size: 22px; 
             font-weight: 800;
             letter-spacing: -0.3px;
+            text-transform: uppercase;
         }
 
         .subtitle { 
@@ -64,6 +88,17 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
+
+        /* CONTENEDOR ANIMA SUS ELEMENTOS */
+        .fade-element {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
 
         .vehicle-img-container { 
             width: 100%; 
@@ -82,6 +117,11 @@
             max-height: 260px; 
             object-fit: cover; 
             display: block; 
+            transition: transform 0.4s ease;
+        }
+
+        .vehicle-img-container:hover .vehicle-img {
+            transform: scale(1.03);
         }
 
         .specs-card { 
@@ -132,13 +172,18 @@
             font-weight: 700; 
             font-size: 14px;
             box-sizing: border-box; 
-            transition: all 0.2s ease; 
+            transition: all 0.25s ease; 
             box-shadow: 0 4px 6px -1px rgba(15, 43, 92, 0.1);
         }
 
         .btn:hover { 
             background: var(--azul-oscuro);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(15, 43, 92, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn-preoperacional { 
@@ -146,12 +191,13 @@
             color: white;
             font-size: 15px;
             padding: 16px;
-            box-shadow: 0 4px 12px rgba(224, 126, 52, 0.25);
             margin-bottom: 24px;
+            animation: pulseGlow 2.5s infinite ease-in-out;
         }
 
         .btn-preoperacional:hover { 
             background: var(--naranja-hover); 
+            transform: translateY(-2px);
         }
 
         .section-title {
@@ -174,12 +220,47 @@
         }
 
         .btn-secondary { background: #059669; }
-        .btn-warning { background: #d97706; }
-        .btn-dark { background: #334155; }
-        .btn-gray { background: #64748b; }
+        .btn-secondary:hover { background: #047857; }
 
-        .error { color: #dc2626; text-align: center; font-weight: bold; padding: 20px; background: #fee2e2; border-radius: 8px; }
-        .loading { text-align: center; font-style: italic; color: var(--texto-secundario); padding: 30px; }
+        .btn-warning { background: #d97706; }
+        .btn-warning:hover { background: #b45309; }
+
+        .btn-dark { background: #334155; }
+        .btn-dark:hover { background: #1e293b; }
+
+        .btn-gray { background: #64748b; }
+        .btn-gray:hover { background: #475569; }
+
+        .error { 
+            color: #dc2626; 
+            text-align: center; 
+            font-weight: bold; 
+            padding: 20px; 
+            background: #fee2e2; 
+            border-radius: 8px; 
+            border: 1px solid #fca5a5;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .loading { 
+            text-align: center; 
+            color: var(--texto-secundario); 
+            padding: 40px 20px; 
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* SPINNER DE CARGA CORPORATIVO */
+        .spinner {
+            width: 38px;
+            height: 38px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid var(--naranja-confipetrol);
+            border-right: 4px solid var(--azul-confipetrol);
+            border-radius: 50%;
+            margin: 0 auto 16px auto;
+            animation: spin 0.8s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -191,7 +272,10 @@
         <h1>Control de Flota</h1>
         <div class="subtitle">Inspección & Confiabilidad</div>
         
-        <div id="content" class="loading">Cargando datos de la unidad...</div>
+        <div id="content" class="loading">
+            <div class="spinner"></div>
+            Cargando datos de la unidad...
+        </div>
     </div>
 
     <script>
@@ -202,10 +286,15 @@
         const vehicleId = urlParams.get('id');
         const container = document.getElementById('content');
 
+        // Función auxiliar para validar enlaces vacíos o nulos
+        function isValidUrl(url) {
+            return url && url.toString().trim() !== "" && url.toString().trim() !== "#";
+        }
+
         if (!vehicleId) {
-            container.innerHTML = '<div class="error">⚠️ No se especificó ningún vehículo en la consulta.</div>';
+            container.innerHTML = '<div class="error">⚠️ No se especificó ningún ID de vehículo en la consulta.</div>';
         } else {
-            fetch(WEB_APP_URL + "?id=" + vehicleId)
+            fetch(WEB_APP_URL + "?id=" + encodeURIComponent(vehicleId))
                 .then(response => response.json())
                 .then(data => {
                     if (!data || !data.placa) {
@@ -213,31 +302,32 @@
                         return;
                     }
 
-                    let mostrarImg = data.fotoLink ? 'display: block;' : 'display: none;';
+                    let tieneFoto = isValidUrl(data.fotoLink);
+                    let mostrarImg = tieneFoto ? 'display: block;' : 'display: none;';
 
                     container.innerHTML = `
-                        <div id="imgContainer" class="vehicle-img-container" style="${mostrarImg}">
-                            <img id="carImg" src="${data.fotoLink || ''}" alt="Foto Vehículo" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
+                        <div id="imgContainer" class="vehicle-img-container fade-element delay-1" style="${mostrarImg}">
+                            <img id="carImg" src="${tieneFoto ? data.fotoLink : ''}" alt="Foto Vehículo" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
                         </div>
                         
-                        <div class="specs-card">
-                            <div class="specs-row"><span class="specs-label">PLACA</span><span class="specs-val"><strong>${data.placa}</strong></span></div>
-                            <div class="specs-row"><span class="specs-label">VEHÍCULO</span><span class="specs-val">${data.marca} ${data.modelo} (${data.color})</span></div>
-                            <div class="specs-row"><span class="specs-label">DESCRIPCIÓN</span><span class="specs-val">${data.descripcion}</span></div>
-                            <div class="specs-row"><span class="specs-label">COMBUSTIBLE</span><span class="specs-val">${data.combustible}</span></div>
-                            <div class="specs-row"><span class="specs-label">Nº MOTOR</span><span class="specs-val">${data.serieMotor}</span></div>
-                            <div class="specs-row"><span class="specs-label">Nº CHASIS</span><span class="specs-val">${data.serieChasis}</span></div>
+                        <div class="specs-card fade-element delay-1">
+                            <div class="specs-row"><span class="specs-label">PLACA</span><span class="specs-val"><strong>${data.placa || 'N/A'}</strong></span></div>
+                            <div class="specs-row"><span class="specs-label">VEHÍCULO</span><span class="specs-val">${data.marca || ''} ${data.modelo || ''} (${data.color || ''})</span></div>
+                            <div class="specs-row"><span class="specs-label">DESCRIPCIÓN</span><span class="specs-val">${data.descripcion || 'N/A'}</span></div>
+                            <div class="specs-row"><span class="specs-label">COMBUSTIBLE</span><span class="specs-val">${data.combustible || 'N/A'}</span></div>
+                            <div class="specs-row"><span class="specs-label">Nº MOTOR</span><span class="specs-val">${data.serieMotor || 'N/A'}</span></div>
+                            <div class="specs-row"><span class="specs-label">Nº CHASIS</span><span class="specs-val">${data.serieChasis || 'N/A'}</span></div>
                         </div>
 
-                        <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
+                        <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional fade-element delay-2" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
 
-                        <div class="section-title">Documentación Oficial</div>
+                        <div class="section-title fade-element delay-3">Documentación Oficial</div>
                         
-                        <a href="${data.soatLink || '#'}" class="btn" target="_blank" style="${data.soatLink ? '' : 'display:none;'}">📄 Ver SOAT</a>
-                        <a href="${data.polizaLink || '#'}" class="btn btn-warning" target="_blank" style="${data.polizaLink ? '' : 'display:none;'}">🛡️ Ver Póliza Todo Riesgo</a>
-                        <a href="${data.tarjetaLink || '#'}" class="btn btn-dark" target="_blank" style="${data.tarjetaLink ? '' : 'display:none;'}">🚗 Ver Tarjeta de Propiedad</a>
-                        <a href="${data.tecnomecanciaLink || '#'}" class="btn btn-secondary" target="_blank" style="${data.tecnomecanciaLink ? '' : 'display:none;'}">🔧 Ver Tecnomecánica / Mantenimiento</a>
-                        <a href="${data.hojaVidaLink || '#'}" class="btn btn-gray" target="_blank" style="${data.hojaVidaLink ? '' : 'display:none;'}">📋 Ver Hoja de Vida del Vehículo</a>
+                        ${isValidUrl(data.soatLink) ? `<a href="${data.soatLink}" class="btn fade-element delay-3" target="_blank">📄 Ver SOAT</a>` : ''}
+                        ${isValidUrl(data.polizaLink) ? `<a href="${data.polizaLink}" class="btn btn-warning fade-element delay-3" target="_blank">🛡️ Ver Póliza Todo Riesgo</a>` : ''}
+                        ${isValidUrl(data.tarjetaLink) ? `<a href="${data.tarjetaLink}" class="btn btn-dark fade-element delay-4" target="_blank">🚗 Ver Tarjeta de Propiedad</a>` : ''}
+                        ${isValidUrl(data.tecnomecanciaLink) ? `<a href="${data.tecnomecanciaLink}" class="btn btn-secondary fade-element delay-4" target="_blank">🔧 Ver Tecnomecánica / Mantenimiento</a>` : ''}
+                        ${isValidUrl(data.hojaVidaLink) ? `<a href="${data.hojaVidaLink}" class="btn btn-gray fade-element delay-4" target="_blank">📋 Ver Hoja de Vida del Vehículo</a>` : ''}
                     `;
                 })
                 .catch(error => {

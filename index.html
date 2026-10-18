@@ -3,173 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Flota - Confipetrol</title>
+    <title>Gestión de Flota - Confipetrol</title>
     <style>
         :root {
-            --azul-confipetrol: #0f2b5c;
-            --naranja-confipetrol: #e07e34;
-            --naranja-hover: #c96b28;
-            --gris-fondo: #f2f4f8;
-            --texto-oscuro: #2c3e50;
+            --primary-dark: #0a1931;
+            --primary-blue: #0f2b5c;
+            --accent-orange: #e07e34;
+            --accent-hover: #c96b28;
+            --bg-gradient: #f4f7fa;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
         }
 
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: var(--gris-fondo); 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            background: linear-gradient(135deg, #e2e8f0 0%, var(--bg-gradient) 100%); 
             margin: 0; 
-            padding: 15px; 
-            color: var(--texto-oscuro); 
+            padding: 20px; 
+            color: var(--text-main); 
+            min-height: 100vh;
         }
 
         .container { 
-            max-width: 600px; 
+            max-width: 540px; 
             margin: auto; 
-            background: white; 
-            padding: 25px; 
-            border-radius: 12px; 
-            box-shadow: 0 6px 18px rgba(15, 43, 92, 0.12); 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px -5px rgba(15, 43, 92, 0.1), 0 8px 10px -6px rgba(15, 43, 92, 0.1); 
             box-sizing: border-box; 
+            border-top: 5px solid var(--accent-orange);
         }
 
         .header-logo {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .header-logo img {
-            max-width: 220px;
+            max-width: 200px;
             height: auto;
         }
 
         h1 { 
-            color: var(--azul-confipetrol); 
+            color: var(--primary-blue); 
             text-align: center; 
-            margin: 10px 0 5px 0; 
-            font-size: 22px; 
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin: 0 0 5px 0; 
+            font-size: 24px; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .subtitle { 
             text-align: center; 
-            color: #666; 
-            font-size: 13px; 
-            margin-bottom: 20px; 
-            font-weight: 600;
+            color: var(--text-muted); 
+            font-size: 12px; 
+            margin-bottom: 25px; 
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
         .vehicle-img-container { 
             width: 100%; 
-            max-height: 300px; 
+            max-height: 280px; 
             overflow: hidden; 
-            border-radius: 10px; 
-            margin-bottom: 20px; 
-            background: #111; 
+            border-radius: 12px; 
+            margin-bottom: 22px; 
+            background: #0f172a; 
             display: none; 
-            text-align: center; 
-            border: 2px solid #e1e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .vehicle-img { 
             width: 100%; 
             height: auto; 
-            max-height: 300px; 
-            object-fit: contain; 
+            max-height: 280px; 
+            object-fit: cover; 
             display: block; 
-            margin: 0 auto; 
+            transition: transform 0.3s ease;
+        }
+
+        .vehicle-img:hover {
+            transform: scale(1.02);
         }
         
-        .card { 
+        .specs-card { 
             background: #f8fafc; 
-            border-left: 6px solid var(--azul-confipetrol); 
-            padding: 16px; 
-            margin-bottom: 20px; 
-            border-radius: 6px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid var(--primary-blue); 
+            padding: 18px; 
+            margin-bottom: 25px; 
+            border-radius: 8px; 
         }
 
-        .card p { 
-            margin: 8px 0; 
+        .specs-card p { 
+            margin: 10px 0; 
             font-size: 14.5px; 
-            word-break: break-word; 
-            line-height: 1.4;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 6px;
         }
 
-        .card strong {
-            color: var(--azul-confipetrol);
+        .specs-card p:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .specs-card strong {
+            color: var(--primary-blue);
         }
         
-        h3 { 
-            color: var(--azul-confipetrol); 
-            border-bottom: 2px solid #e1e8f0; 
-            padding-bottom: 6px; 
-            margin-top: 25px; 
-            font-size: 16px;
+        .section-title { 
+            color: var(--primary-blue); 
+            font-size: 14px;
             text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin: 25px 0 12px 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #cbd5e1;
         }
         
         .btn { 
-            display: block; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%; 
             padding: 14px; 
             margin: 10px 0; 
-            background: var(--azul-confipetrol); 
+            background: var(--primary-blue); 
             color: white; 
             text-align: center; 
             text-decoration: none; 
             border-radius: 8px; 
-            font-weight: bold; 
-            font-size: 15px;
+            font-weight: 600; 
+            font-size: 14.5px;
             box-sizing: border-box; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            transition: all 0.2s ease; 
+            box-shadow: 0 4px 6px -1px rgba(15, 43, 92, 0.1);
         }
 
         .btn:hover { 
-            opacity: 0.92;
+            background: var(--primary-dark);
             transform: translateY(-1px);
+            box-shadow: 0 6px 8px -1px rgba(15, 43, 92, 0.2);
         }
 
-        /* Botón de Preoperacional destacado con color Naranja Corporativo */
         .btn-preoperacional { 
-            background: var(--naranja-confipetrol); 
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #d97327 100%); 
             color: white;
             font-size: 16px;
             padding: 16px;
-            margin-bottom: 20px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(224, 126, 52, 0.3);
         }
 
         .btn-preoperacional:hover { 
-            background: var(--naranja-hover); 
+            background: linear-gradient(135deg, var(--accent-hover) 0%, #b85e1b 100%); 
         }
 
-        .btn-secondary { background: #28a745; }
-        .btn-warning { background: #d97724; color: white; }
-        .btn-dark { background: #34495e; }
-        .btn-gray { background: #6c757d; }
+        .btn-secondary { background: #059669; }
+        .btn-secondary:hover { background: #047857; }
+        
+        .btn-warning { background: #d97706; }
+        .btn-warning:hover { background: #b45309; }
+        
+        .btn-dark { background: #334155; }
+        .btn-dark:hover { background: #1e293b; }
 
-        .error { color: #d9534f; text-align: center; font-weight: bold; padding: 20px; }
-        .loading { text-align: center; font-style: italic; color: #777; padding: 20px; }
+        .btn-gray { background: #475569; }
+        .btn-gray:hover { background: #334155; }
+
+        .error { color: #dc2626; text-align: center; font-weight: bold; padding: 20px; background: #fee2e2; border-radius: 8px;}
+        .loading { text-align: center; font-style: italic; color: var(--text-muted); padding: 30px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo Corporativo desde GitHub -->
         <div class="header-logo">
-            <img src="logo.png.png" alt="Logo Confipetrol" onerror="this.style.display='none';">
+            <img src="logo.png.png" alt="Confipetrol Logo" onerror="this.style.display='none';">
         </div>
         
         <h1>Control de Flota</h1>
-        <div class="subtitle">SISTEMA DE GESTIÓN DE VEHÍCULOS</div>
-        <div id="content" class="loading">Consultando información del vehículo...</div>
+        <div class="subtitle">Plataforma de Inspección y Confiabilidad</div>
+        
+        <div id="content" class="loading">Cargando perfil del vehículo...</div>
     </div>
 
     <script>
         // PEGA AQUÍ TU URL DE WEB APP DE APPS SCRIPT (la que termina en /exec)
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxWUF5s5w1TpnAsqoTm-ZQ_GSTz5QLnPbW_J2qJg4mwTFiPJPmr10jK01iL41A02C34GQ/exec";
-
-        // URL del Formulario Preoperacional de Microsoft Forms
+        const WEB_APP_URL = "TU_URL_DE_WEB_APP_DE_APPS_SCRIPT_AQUI";
         const FORMS_PREOPERACIONAL_URL = "https://forms.office.com/pages/responsepage.aspx?id=yS0eZAbR9kW7ZsdC2UyRBA85K0XcYFZFtOvUHRwVjVNUMFA1QzQyRFMyNTUwUVI5NEJNMFhSUUowSC4u&origin=QRCode&route=shorturl";
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -177,13 +214,13 @@
         const container = document.getElementById('content');
 
         if (!vehicleId) {
-            container.innerHTML = '<div class="error">No se ha especificado ningún vehículo en el código QR.</div>';
+            container.innerHTML = '<div class="error">⚠️ No se ha especificado ningún identificador en el código QR.</div>';
         } else {
             fetch(WEB_APP_URL + "?id=" + vehicleId)
                 .then(response => response.json())
                 .then(data => {
                     if (!data || !data.placa) {
-                        container.innerHTML = '<div class="error">Vehículo no encontrado en la base de datos.</div>';
+                        container.innerHTML = '<div class="error">❌ Vehículo no registrado en la base de datos de Confipetrol.</div>';
                         return;
                     }
 
@@ -191,22 +228,22 @@
 
                     container.innerHTML = `
                         <div id="imgContainer" class="vehicle-img-container" style="${mostrarContenedor}">
-                            <img id="carImg" src="${data.fotoLink || ''}" alt="Foto del Vehículo" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
+                            <img id="carImg" src="${data.fotoLink || ''}" alt="Foto Unidad" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
                         </div>
                         
-                        <div class="card">
-                            <p><strong>PLACA:</strong> ${data.placa}</p>
-                            <p><strong>VEHÍCULO:</strong> ${data.marca} ${data.modelo} (${data.color})</p>
-                            <p><strong>DESCRIPCIÓN:</strong> ${data.descripcion}</p>
-                            <p><strong>COMBUSTIBLE:</strong> ${data.combustible}</p>
-                            <p><strong>Nº MOTOR:</strong> ${data.serieMotor}</p>
-                            <p><strong>Nº CHASIS:</strong> ${data.serieChasis}</p>
+                        <div class="specs-card">
+                            <p><strong>PLACA:</strong> <span>${data.placa}</span></p>
+                            <p><strong>VEHÍCULO:</strong> <span>${data.marca} ${data.modelo} (${data.color})</span></p>
+                            <p><strong>DESCRIPCIÓN:</strong> <span>${data.descripcion}</span></p>
+                            <p><strong>COMBUSTIBLE:</strong> <span>${data.combustible}</span></p>
+                            <p><strong>Nº MOTOR:</strong> <span>${data.serieMotor}</span></p>
+                            <p><strong>Nº CHASIS:</strong> <span>${data.serieChasis}</span></p>
                         </div>
 
-                        <!-- Botón destacado Preoperacional -->
                         <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
 
-                        <h3>Documentación Oficial</h3>
+                        <div class="section-title">Documentación Oficial</div>
+                        
                         <a href="${data.soatLink || '#'}" class="btn" target="_blank" style="${data.soatLink ? '' : 'display:none;'}">📄 Ver SOAT</a>
                         <a href="${data.polizaLink || '#'}" class="btn btn-warning" target="_blank" style="${data.polizaLink ? '' : 'display:none;'}">🛡️ Ver Póliza Todo Riesgo</a>
                         <a href="${data.tarjetaLink || '#'}" class="btn btn-dark" target="_blank" style="${data.tarjetaLink ? '' : 'display:none;'}">🚗 Ver Tarjeta de Propiedad</a>
@@ -216,7 +253,7 @@
                 })
                 .catch(error => {
                     console.error("Error al obtener los datos:", error);
-                    container.innerHTML = '<div class="error">Hubo un error al cargar la información del vehículo. Intente de nuevo más tarde.</div>';
+                    container.innerHTML = '<div class="error">⚠️ Error de conexión con el servidor de la flota. Intente nuevamente.</div>';
                 });
         }
     </script>

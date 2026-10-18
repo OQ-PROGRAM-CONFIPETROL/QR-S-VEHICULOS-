@@ -26,19 +26,8 @@
         }
 
         @keyframes fadeInContainer {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 4px 12px rgba(224, 126, 52, 0.25); }
-            50% { box-shadow: 0 6px 20px rgba(224, 126, 52, 0.55); }
-            100% { box-shadow: 0 4px 12px rgba(224, 126, 52, 0.25); }
         }
 
         @keyframes spin {
@@ -55,7 +44,7 @@
             box-shadow: 0 10px 25px -5px rgba(15, 43, 92, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04); 
             box-sizing: border-box; 
             border-top: 6px solid var(--naranja-confipetrol);
-            animation: fadeInContainer 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeInContainer 0.5s ease-out forwards;
         }
 
         .header-logo {
@@ -87,16 +76,6 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-
-        .fade-element {
-            opacity: 0;
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
 
         .vehicle-img-container { 
             width: 100%; 
@@ -170,7 +149,7 @@
             font-weight: 700; 
             font-size: 14px;
             box-sizing: border-box; 
-            transition: all 0.25s ease; 
+            transition: all 0.2s ease; 
             box-shadow: 0 4px 6px -1px rgba(15, 43, 92, 0.1);
         }
 
@@ -180,17 +159,21 @@
             box-shadow: 0 6px 12px -2px rgba(15, 43, 92, 0.2);
         }
 
+        /* BOTÓN PREOPERACIONAL FIJO CON VISIBILIDAD GARANTIZADA */
         .btn-preoperacional { 
-            background: linear-gradient(135deg, var(--naranja-confipetrol) 0%, #d97327 100%); 
-            color: white;
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            background: linear-gradient(135deg, var(--naranja-confipetrol) 0%, #d97327 100%) !important; 
+            color: #ffffff !important;
             font-size: 15px;
             padding: 16px;
-            margin-bottom: 24px;
-            animation: pulseGlow 2.5s infinite ease-in-out;
+            margin: 15px 0 24px 0;
+            box-shadow: 0 4px 14px rgba(224, 126, 52, 0.35);
         }
 
         .btn-preoperacional:hover { 
-            background: var(--naranja-hover); 
+            background: var(--naranja-hover) !important; 
             transform: translateY(-2px);
         }
 
@@ -233,7 +216,6 @@
             background: #fee2e2; 
             border-radius: 8px; 
             border: 1px solid #fca5a5;
-            animation: fadeInUp 0.4s ease-out;
         }
 
         .loading { 
@@ -298,11 +280,11 @@
                     let mostrarImg = tieneFoto ? 'display: block;' : 'display: none;';
 
                     container.innerHTML = `
-                        <div id="imgContainer" class="vehicle-img-container fade-element delay-1" style="${mostrarImg}">
+                        <div id="imgContainer" class="vehicle-img-container" style="${mostrarImg}">
                             <img id="carImg" src="${tieneFoto ? data.fotoLink : ''}" alt="Foto Vehículo" class="vehicle-img" onerror="document.getElementById('imgContainer').style.display='none';">
                         </div>
                         
-                        <div class="specs-card fade-element delay-1">
+                        <div class="specs-card">
                             <div class="specs-row"><span class="specs-label">PLACA</span><span class="specs-val"><strong>${data.placa || 'N/A'}</strong></span></div>
                             <div class="specs-row"><span class="specs-label">VEHÍCULO</span><span class="specs-val">${data.marca || ''} ${data.modelo || ''} (${data.color || ''})</span></div>
                             <div class="specs-row"><span class="specs-label">DESCRIPCIÓN</span><span class="specs-val">${data.descripcion || 'N/A'}</span></div>
@@ -311,16 +293,16 @@
                             <div class="specs-row"><span class="specs-label">Nº CHASIS</span><span class="specs-val">${data.serieChasis || 'N/A'}</span></div>
                         </div>
 
-                        <!-- EL BOTÓN SE RENDERIZA SIEMPRE FIJO AQUÍ -->
-                        <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional fade-element delay-2" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
+                        <!-- BOTÓN DEL PREOPERACIONAL DIRECTO -->
+                        <a href="${FORMS_PREOPERACIONAL_URL}" class="btn btn-preoperacional" target="_blank">📋 REALIZAR INSPECCIÓN PREOPERACIONAL</a>
 
-                        <div class="section-title fade-element delay-3">Documentación Oficial</div>
+                        <div class="section-title">Documentación Oficial</div>
                         
-                        ${isValidUrl(data.soatLink) ? `<a href="${data.soatLink}" class="btn fade-element delay-3" target="_blank">📄 Ver SOAT</a>` : ''}
-                        ${isValidUrl(data.polizaLink) ? `<a href="${data.polizaLink}" class="btn btn-warning fade-element delay-3" target="_blank">🛡️ Ver Póliza Todo Riesgo</a>` : ''}
-                        ${isValidUrl(data.tarjetaLink) ? `<a href="${data.tarjetaLink}" class="btn btn-dark fade-element delay-4" target="_blank">🚗 Ver Tarjeta de Propiedad</a>` : ''}
-                        ${isValidUrl(data.tecnomecanciaLink) ? `<a href="${data.tecnomecanciaLink}" class="btn btn-secondary fade-element delay-4" target="_blank">🔧 Ver Tecnomecánica / Mantenimiento</a>` : ''}
-                        ${isValidUrl(data.hojaVidaLink) ? `<a href="${data.hojaVidaLink}" class="btn btn-gray fade-element delay-4" target="_blank">📋 Ver Hoja de Vida del Vehículo</a>` : ''}
+                        ${isValidUrl(data.soatLink) ? `<a href="${data.soatLink}" class="btn" target="_blank">📄 Ver SOAT</a>` : ''}
+                        ${isValidUrl(data.polizaLink) ? `<a href="${data.polizaLink}" class="btn btn-warning" target="_blank">🛡️ Ver Póliza Todo Riesgo</a>` : ''}
+                        ${isValidUrl(data.tarjetaLink) ? `<a href="${data.tarjetaLink}" class="btn btn-dark" target="_blank">🚗 Ver Tarjeta de Propiedad</a>` : ''}
+                        ${isValidUrl(data.tecnomecanciaLink) ? `<a href="${data.tecnomecanciaLink}" class="btn btn-secondary" target="_blank">🔧 Ver Tecnomecánica / Mantenimiento</a>` : ''}
+                        ${isValidUrl(data.hojaVidaLink) ? `<a href="${data.hojaVidaLink}" class="btn btn-gray" target="_blank">📋 Ver Hoja de Vida del Vehículo</a>` : ''}
                     `;
                 })
                 .catch(error => {
